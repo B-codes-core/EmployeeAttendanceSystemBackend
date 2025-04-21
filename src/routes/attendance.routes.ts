@@ -21,7 +21,7 @@ router.get('/', getAllAttendance);
 // GET /api/attendance/:employeeId
 router.get('/:employeeId', getAttendanceByEmployeeId);
 
-// GET /api/reports : Use a separate route for report to avoid conflict with the attendance/:employeeId route
+// GET /api/attendance/reports/all
 router.get('/reports/all', getAttendanceReport);
 
 export default router;

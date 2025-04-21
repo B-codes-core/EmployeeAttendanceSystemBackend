@@ -3,21 +3,16 @@ import pool from '../config/db';
 import { Attendance } from '../models/Attendance';
 import { CheckInDTO, CheckOutDTO } from '../models/Attendance';
 
-// See how queries are sent to DB
-// Check if functionality of all the APIs is correct (What the API is actually doing)
-// https://claude.ai/chat/653b5064-44e4-4a47-a895-96c62f50e9e9
-// Remove all comments
-
 // POST /api/attendance/checkin
 export const checkInEmployee = async (req: Request, res: Response): Promise<void> => {
-    const { employee_name, employee_id, department }: CheckInDTO = req.body;
+    try{
+        const { employee_name, employee_id, department }: CheckInDTO = req.body;
 
-    if (!employee_name || !employee_id || !department) {
-        res.status(400).json({ message: 'One or more required fields are missing' });
-        return;
-    }
+        if (!employee_name || !employee_id || !department) {
+            res.status(400).json({ message: 'One or more required fields are missing' });
+            return;
+        }
 
-    try {
         // Prevent duplicate check-in on same day
         const [records] = await pool.query(
             `SELECT * FROM attendance 
@@ -101,9 +96,6 @@ export const getAttendanceByEmployeeId = async (req: Request, res: Response): Pr
 };
 
 // GET /api/attendance/reports/all
-// Try to change to api/reports if possible.
-// CHANGE THIS SHIT. IT SHOULD RETURN BY FILTER. USE QUERY PARAMS. SEE HOW TO FILTER IN THE DEMO CODE
-// WTH is this doing
 export const getAttendanceReport = async (req: Request, res: Response): Promise<void> => {
     const { name, department, from, to } = req.query;
 
