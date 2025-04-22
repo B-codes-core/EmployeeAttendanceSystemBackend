@@ -103,17 +103,17 @@ export const getAttendanceReport = async (req: Request, res: Response): Promise<
     const params: any[] = [];
 
     if (name) {
-        query +=  `AND employee_name LIKE ?`;
+        query +=  ` AND employee_name LIKE ?`;
         params.push(`%${name}%`);
     }
 
     if (department) {
-        query +=  `AND department = ?`;
+        query +=  ` AND department = ?`;
         params.push(department);
     }
 
     if (from && to) {
-        query +=  `AND DATE(check_in_time) BETWEEN ? AND ?`;
+        query +=  ` AND DATE(check_in_time) BETWEEN ? AND ?`;
         params.push(from, to);
     }
 
